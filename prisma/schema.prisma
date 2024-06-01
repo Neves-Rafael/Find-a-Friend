@@ -8,10 +8,41 @@ datasource db {
 }
 
 model User {
-  id       String @id @default(uuid())
-  name     String
-  email    String @unique
-  password String
+  id         String   @id @default(uuid())
+  name       String
+  email      String   @unique
+  password   String
+  created_at DateTime @default(now())
 
   @@map("users")
+}
+
+model Org {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  password_hash String
+  phone         String   @unique
+  latitude      Decimal
+  longitude     Decimal
+  created_at    DateTime @default(now())
+  pet           Pet[]
+
+  @@map("org")
+}
+
+model Pet {
+  id              String   @id @default(uuid())
+  name            String
+  age             Int
+  characteristics String
+  latitude        Decimal
+  longitude       Decimal
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+
+  org    Org    @relation(fields: [org_id], references: [id])
+  org_id String
+
+  @@map("pet")
 }
