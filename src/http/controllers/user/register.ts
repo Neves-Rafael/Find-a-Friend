@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { FastifyRequest, FastifyReply } from "fastify";
-import { prisma } from "../../../lib/prisma";
-import { hash } from "bcryptjs";
+import { UserRegisterService } from "../../../services/user-register";
+import { PrismaUserRepository } from "../../../repositories/prisma-user-repository";
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
   const userSchema = z.object({
@@ -12,25 +12,18 @@ export async function register(request: FastifyRequest, reply: FastifyReply) {
 
   const { name, email, password } = userSchema.parse(request.body);
 
-  const password_hash = await hash(password, 6);
+  try {
+    const userRepository = new PrismaUserRepository();
+    const userRegisterService = new UserRegisterService(userRepository);
 
-  const emailAlreadyExist = await prisma.user.findUnique({
-    where: {
-      email,
-    },
-  });
-
-  if (emailAlreadyExist) {
-    return reply.status(409).send();
-  }
-
-  await prisma.user.create({
-    data: {
+    userRegisterService.execute({
       name,
       email,
-      password_hash,
-    },
-  });
+      password,
+    });
+  } catch (error) {
+    return error;
+  }
 
   return reply.send();
 }
