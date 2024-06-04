@@ -3,6 +3,33 @@ Content-Type: application/json
 
 {
   "name": "Rafael",
-  "email": "rafael2@email.com",
+  "email": "rafael23@email.com",
   "password": "123456"
+}
+
+###
+
+POST http://localhost:3333/org/register
+Content-Type: application/json
+
+{
+  "name": "Pet care",
+  "email": "petcare@example.com",
+  "phone": "+55 61 99123-4567",
+  "longitude": "-16.123456",
+  "latitude": "-48.123456",
+  "password": "123456"
+}
+
+###
+
+POST http://localhost:3333/pet/register/:org_id
+Content-Type: application/json
+
+{
+  "name": "Test pet",
+  "age": 4,
+  "characteristics": "porte médio, pelo escuro",
+  "longitude": "-16.123456",
+  "latitude": "-48.123456",
 }
