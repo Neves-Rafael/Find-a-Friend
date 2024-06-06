@@ -1,6 +1,8 @@
 import { FastifyInstance } from "fastify";
-import { register } from "./user/register";
+import { userRegister } from "./user/register";
+import { petRegister } from "./pet/register";
 
 export async function appRoutes(app: FastifyInstance) {
-  app.post("/user", register);
+  app.post("/user", userRegister);
+  app.post("/pet/register", petRegister);
 }

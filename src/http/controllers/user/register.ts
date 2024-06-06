@@ -3,7 +3,7 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import { UserRegisterService } from "../../../services/user-register";
 import { PrismaUserRepository } from "../../../repositories/prisma/prisma-user-repository";
 
-export async function register(request: FastifyRequest, reply: FastifyReply) {
+export async function userRegister(request: FastifyRequest, reply: FastifyReply) {
   const userSchema = z.object({
     name: z.string(),
     email: z.string().email(),

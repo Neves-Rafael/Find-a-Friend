@@ -9,7 +9,7 @@ interface PetRegisterServiceParams {
   longitude: Decimal;
 }
 
-export class PetRegisterParams {
+export class PetRegisterService {
   constructor(private petsRepository: PetRepository) {}
 
   async execute({ name, age, characteristics, latitude, longitude }: PetRegisterServiceParams) {
