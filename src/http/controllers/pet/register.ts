@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { FastifyRequest, FastifyReply } from "fastify";
 import { PetRegisterService } from "../../../services/pet-register";
-import { PrismaUserRepository } from "../../../repositories/prisma/prisma-user-repository";
+import { PrismaPetRepository } from "../../../repositories/prisma/prisma-pet-repository";
 
 export async function petRegister(request: FastifyRequest, reply: FastifyReply) {
   const petSchema = z.object({

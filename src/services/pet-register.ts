@@ -1,30 +1,32 @@
 import { PetRepository } from "../repositories/interfaces/pet-repository-interface";
-import { Decimal } from "@prisma/client/runtime/library";
 
 interface PetRegisterServiceParams {
   name: string;
   age: number;
   characteristics: string;
-  latitude: Decimal;
-  longitude: Decimal;
+  latitude: number;
+  longitude: number;
+  org_id: string;
 }
 
 export class PetRegisterService {
   constructor(private petsRepository: PetRepository) {}
 
-  async execute({ name, age, characteristics, latitude, longitude }: PetRegisterServiceParams) {
+  async execute({
+    name,
+    age,
+    characteristics,
+    latitude,
+    longitude,
+    org_id,
+  }: PetRegisterServiceParams) {
     await this.petsRepository.create({
       name,
       age,
       characteristics,
       latitude,
       longitude,
-      // TODO: adjust org param
-      org: {
-        create: undefined,
-        connectOrCreate: undefined,
-        connect: undefined,
-      },
+      org: org_id,
     });
   }
 }
